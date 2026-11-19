@@ -123,12 +123,19 @@ export const Stats: React.FC = () => {
       gsap.ticker.remove(tick);
     };
 
+    let panelRect = { left: 0, top: 0 };
+    const updatePanelRect = () => {
+      if (panel) panelRect = panel.getBoundingClientRect();
+    };
+    updatePanelRect();
+    window.addEventListener('resize', updatePanelRect, { passive: true });
+    window.addEventListener('scroll', updatePanelRect, { passive: true });
+
     // Listening on the whole section (not just the panel) lets the rim light up as the cursor approaches
     const onMove = (e: PointerEvent) => {
       if (e.pointerType === 'touch') return;
-      const rect = panel.getBoundingClientRect();
-      target.x = e.clientX - rect.left;
-      target.y = e.clientY - rect.top;
+      target.x = e.clientX - panelRect.left;
+      target.y = e.clientY - panelRect.top;
       if (target.o === 0) {
         // first entry: bloom out from the cursor instead of sliding in from the last position
         current.x = target.x;
@@ -145,6 +152,8 @@ export const Stats: React.FC = () => {
     section.addEventListener('pointerleave', onLeave);
 
     return () => {
+      window.removeEventListener('resize', updatePanelRect);
+      window.removeEventListener('scroll', updatePanelRect);
       section.removeEventListener('pointermove', onMove);
       section.removeEventListener('pointerleave', onLeave);
       stop();

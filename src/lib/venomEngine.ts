@@ -1122,9 +1122,14 @@ void main() {
 
   // ───────────── input ─────────────
   function insidePill(x, y) { return pillEdge(x, y, geo()).d < 0; }
+  let canvasRect = { left: 0, top: 0 };
+  const updateCanvasRect = () => { if (canvas && canvas.isConnected) canvasRect = canvas.getBoundingClientRect(); };
+  updateCanvasRect();
+  window.addEventListener('resize', updateCanvasRect, { passive: true });
+  window.addEventListener('scroll', updateCanvasRect, { passive: true });
+
   const toLocal = () => {
-    const r = canvas.getBoundingClientRect();
-    cur.x = cur.cx - r.left; cur.y = cur.cy - r.top;
+    cur.x = cur.cx - canvasRect.left; cur.y = cur.cy - canvasRect.top;
   };
   const onMove = (e) => {
     cur.cx = e.clientX; cur.cy = e.clientY;
@@ -1188,6 +1193,8 @@ void main() {
     destroyed = true;
     cancelAnimationFrame(raf);
     io.disconnect();
+    window.removeEventListener('resize', updateCanvasRect);
+    window.removeEventListener('scroll', updateCanvasRect);
     window.removeEventListener('pointermove', onMove);
     window.removeEventListener('pointerdown', onDown);
     window.removeEventListener('pointerup', onUp);

@@ -472,6 +472,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
     let frustumCheckTimer = 0;
 
     const onScroll = () => {
+      if (!isSectionIntersecting) return;
       const rect = container.getBoundingClientRect();
       const scrollRange = rect.height - window.innerHeight;
       scrollTarget = scrollRange > 0 ? Math.max(0, Math.min(1, -rect.top / scrollRange)) : 0;
@@ -491,7 +492,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
     const io = new IntersectionObserver(
       ([entry]) => {
         isSectionIntersecting = entry.isIntersecting;
-        if (!isSectionIntersecting) stopAllVideos();
+        if (isSectionIntersecting) onScroll();
+        else stopAllVideos();
       },
       { rootMargin: '250px' }
     );
@@ -543,15 +545,23 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
     let downX = 0;
     let downY = 0;
 
+    let canvasRect = { left: 0, top: 0, width: 1, height: 1 };
+    const updateCanvasRect = () => {
+      if (canvasWrap) canvasRect = canvasWrap.getBoundingClientRect();
+    };
+    updateCanvasRect();
+    window.addEventListener('resize', updateCanvasRect, { passive: true });
+    window.addEventListener('scroll', updateCanvasRect, { passive: true });
+
     const onPointerMove = (e: PointerEvent) => {
-      const rect = canvasWrap.getBoundingClientRect();
-      ptrX = e.clientX - rect.left;
-      ptrY = e.clientY - rect.top;
-      mouseNdc.set((ptrX / rect.width) * 2 - 1, -(ptrY / rect.height) * 2 + 1);
+      ptrX = e.clientX - canvasRect.left;
+      ptrY = e.clientY - canvasRect.top;
+      mouseNdc.set((ptrX / (canvasRect.width || 1)) * 2 - 1, -(ptrY / (canvasRect.height || 1)) * 2 + 1);
     };
 
     const onPointerLeave = () => {
-      mouseNdc.set(9, 9);
+      mouseNdc.set(99, 99);
+      hoverIndex = -1;
     };
 
     const onPointerDown = (e: PointerEvent) => {
@@ -570,6 +580,10 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
     };
 
     const checkRaycast = () => {
+      if (mouseNdc.x > 2) {
+        hoverIndex = -1;
+        return;
+      }
       raycaster.setFromCamera(mouseNdc, camera);
       const hits = raycaster.intersectObjects(
         cards.filter((c) => c.mat.uniforms.uOpacity.value > 0.3).map((c) => c.mesh)
@@ -687,8 +701,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
             (tooltip.querySelector('[data-c]') as HTMLElement).textContent = hoveredProj.category;
           }
           tooltip.style.opacity = '1';
-          const maxLeft = viewW - tooltip.offsetWidth - 8;
-          const maxTop = viewH - tooltip.offsetHeight - 8;
+          const maxLeft = viewW - 280;
+          const maxTop = viewH - 100;
           tooltip.style.transform = `translate(${Math.max(8, Math.min(ptrX + 18, maxLeft))}px, ${Math.max(8, Math.min(ptrY + 18, maxTop))}px)`;
         } else {
           tooltip.style.opacity = '0';
@@ -729,6 +743,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
     return () => {
       cancelAnimationFrame(animId);
       io.disconnect();
+      window.removeEventListener('resize', updateCanvasRect);
+      window.removeEventListener('scroll', updateCanvasRect);
       window.removeEventListener('resize', onResize);
       window.removeEventListener('scroll', onScroll);
       document.removeEventListener('pointerdown', wakeVideos);

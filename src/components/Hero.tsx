@@ -356,6 +356,19 @@ export const Hero: React.FC = () => {
     resizeObserver.observe(section);
 
     /* ── pointer: hover tilt, hover lift, shard dragging ── */
+    let sectionTop = 0;
+    let sectionW = section.clientWidth || window.innerWidth;
+    let sectionH = section.clientHeight || window.innerHeight;
+    const updateCoords = () => {
+      const r = section.getBoundingClientRect();
+      sectionTop = r.top;
+      sectionW = r.width || window.innerWidth;
+      sectionH = r.height || window.innerHeight;
+    };
+    updateCoords();
+    window.addEventListener('scroll', updateCoords, { passive: true });
+    window.addEventListener('resize', updateCoords, { passive: true });
+
     const ndc = new THREE.Vector2(0, 0);
     const raycaster = new THREE.Raycaster();
     const dragPlane = new THREE.Plane();
@@ -370,9 +383,8 @@ export const Hero: React.FC = () => {
     const shardMeshes = () => shards.map((s) => s.mesh);
 
     const onPointerMove = (e: PointerEvent) => {
-      const rect = section.getBoundingClientRect();
-      ndc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      ndc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      ndc.x = (e.clientX / sectionW) * 2 - 1;
+      ndc.y = -((e.clientY - sectionTop) / sectionH) * 2 + 1;
       hovering = true;
 
       if (dragIndex >= 0 && e.pointerId === dragPointerId) {
@@ -405,7 +417,7 @@ export const Hero: React.FC = () => {
       if (dragIndex >= 0) return;
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       if ((e.target as HTMLElement).closest('a, button, input, textarea, nav')) return;
-      if (section.getBoundingClientRect().top < -section.clientHeight * 0.04) return;
+      if (sectionTop < -sectionH * 0.04) return;
 
       onPointerMove(e);
       scene.updateMatrixWorld(true);
@@ -468,8 +480,7 @@ export const Hero: React.FC = () => {
       tilt.y += (wantY - tilt.y) * damp(5);
 
       /* scroll progress 0..1 → shards fly apart as the hero leaves the viewport */
-      const rect = section.getBoundingClientRect();
-      const scrollTarget = THREE.MathUtils.clamp(-rect.top / (rect.height * 0.8), 0, 1);
+      const scrollTarget = THREE.MathUtils.clamp(-sectionTop / (sectionH * 0.8), 0, 1);
       scrollSmooth += (scrollTarget - scrollSmooth) * damp(8);
       const sp = scrollSmooth * scrollSmooth * (3 - 2 * scrollSmooth); // smoothstep
 
@@ -529,6 +540,8 @@ export const Hero: React.FC = () => {
 
     return () => {
       cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', updateCoords);
+      window.removeEventListener('resize', updateCoords);
       resizeObserver.disconnect();
       io.disconnect();
       section.removeEventListener('pointermove', onPointerMove);

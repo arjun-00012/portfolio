@@ -37,9 +37,16 @@ export const HangingPhoto: React.FC = () => {
     let isIntersecting = true;
     let animId = 0;
 
+    let rigRect = { left: 0, top: 0, width: 300, height: 400 };
+    const updateRigRect = () => {
+      if (rig) rigRect = rig.getBoundingClientRect();
+    };
+    updateRigRect();
+    window.addEventListener('resize', updateRigRect, { passive: true });
+    window.addEventListener('scroll', updateRigRect, { passive: true });
+
     const getPivot = () => {
-      const rect = rig.getBoundingClientRect();
-      return { x: rect.left + rect.width / 2, y: rect.top + 8 };
+      return { x: rigRect.left + rigRect.width / 2, y: rigRect.top + 8 };
     };
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -56,10 +63,9 @@ export const HangingPhoto: React.FC = () => {
       }
 
       if (prefersReducedMotion || isCoarse || !isIntersecting) return;
-      const rect = rig.getBoundingClientRect();
       const dist =
-        Math.abs(e.clientX - (rect.left + rect.width / 2)) +
-        Math.max(0, Math.abs(e.clientY - (rect.top + rect.height / 2)) - rect.height / 2);
+        Math.abs(e.clientX - (rigRect.left + rigRect.width / 2)) +
+        Math.max(0, Math.abs(e.clientY - (rigRect.top + rigRect.height / 2)) - rigRect.height / 2);
       const influence = Math.max(0, 1 - dist / 900);
       angularVel += clamp(-vx * Rb * influence, 0.25);
     };
@@ -122,6 +128,8 @@ export const HangingPhoto: React.FC = () => {
     return () => {
       cancelAnimationFrame(animId);
       observer.disconnect();
+      window.removeEventListener('resize', updateRigRect);
+      window.removeEventListener('scroll', updateRigRect);
       window.removeEventListener('pointermove', handlePointerMove);
       swing.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('pointerup', handlePointerUp);

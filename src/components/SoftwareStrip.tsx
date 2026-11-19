@@ -28,8 +28,8 @@ export const SoftwareStrip: React.FC = () => (
             viewBox="0 0 24 24"
             role="img"
             aria-label={tool.label}
-            className="shrink-0 w-14 h-14 md:w-16 md:h-16 transition-transform duration-300 group-hover:scale-110"
-            style={{ fill: tool.color, filter: `drop-shadow(0 0 10px ${tool.color}55)` }}
+            className="shrink-0 w-14 h-14 md:w-16 md:h-16 transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(216,195,165,0.4)]"
+            style={{ fill: tool.color }}
           >
             {tool.path ? (
               <path d={tool.path} />

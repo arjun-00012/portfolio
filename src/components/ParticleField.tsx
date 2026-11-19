@@ -72,9 +72,10 @@ const FRAGMENT_SHADER = /* glsl */ `
 
   void main() {
     vec2 c = gl_PointCoord - 0.5;
-    float d = length(c);
-    float core = exp(-d * d * 60.0);
-    float halo = exp(-d * d * 7.0) * (0.35 + vSize * 0.04);
+    float d2 = dot(c, c);
+    if (d2 > 0.25) discard;
+    float core = exp(-d2 * 60.0);
+    float halo = exp(-d2 * 7.0) * (0.35 + vSize * 0.04);
     float a = (core + halo) * vAlpha;
     if (a < 0.003) discard;
     vec3 colChampagne = mix(vec3(0.55, 0.47, 0.38), vec3(0.85, 0.76, 0.65), vSeed);
@@ -202,6 +203,7 @@ export const ParticleField: React.FC = () => {
 
     const render = (now: number) => {
       animId = requestAnimationFrame(render);
+      if (document.hidden) return;
       const dt = Math.min((now - lastFrameTime) / 1000, 0.05);
       lastFrameTime = now;
 
