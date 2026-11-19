@@ -774,13 +774,13 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
 
   const headerContent = (
     <div data-project-heading className="flex flex-col items-center text-center">
-      <span className="text-[#D8C3A5] font-bold uppercase text-sm md:text-base tracking-[0.2em] mb-2">
+      <span className="text-[#D8C3A5] font-bold uppercase text-xs sm:text-sm md:text-base tracking-[0.2em] mb-1 sm:mb-2">
         Featured Works
       </span>
-      <h2 className="text-5xl md:text-7xl font-black tracking-tight uppercase text-white">
+      <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase text-white">
         PROJECTS.
       </h2>
-      <div className="w-20 h-1.5 bg-[#D8C3A5] mt-3 rounded-full" />
+      <div className="w-16 sm:w-20 h-1 sm:h-1.5 bg-[#D8C3A5] mt-2 sm:mt-3 rounded-full" />
     </div>
   );
 

@@ -48,20 +48,20 @@ export const Contact: React.FC = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative w-full text-gray-100 py-28 px-6 md:px-16 lg:px-24 flex flex-col items-center justify-center overflow-hidden border-t border-white/5"
+      className="relative w-full text-gray-100 py-16 sm:py-20 md:py-28 px-4 sm:px-6 md:px-16 lg:px-24 flex flex-col items-center justify-center overflow-hidden border-t border-white/5"
     >
       {/* Section Title */}
-      <div ref={titleRef} className="flex flex-col items-center text-center mb-14 z-10">
-        <span className="text-[#D8C3A5] font-bold uppercase text-sm md:text-base tracking-[0.2em] mb-2 flex items-center gap-1.5">
-          <img src="/assets/icon.svg" alt="" aria-hidden="true" className="w-6 h-6 object-contain" />
+      <div ref={titleRef} className="flex flex-col items-center text-center mb-10 sm:mb-14 z-10">
+        <span className="text-[#D8C3A5] font-bold uppercase text-xs sm:text-sm md:text-base tracking-[0.2em] mb-2 flex items-center gap-1.5">
+          <img src="/assets/icon.svg" alt="" aria-hidden="true" className="w-5 h-5 sm:w-6 sm:h-6 object-contain" />
           Get In Touch
         </span>
         <h2
-          className="text-5xl md:text-7xl font-black tracking-tight uppercase text-white"
+          className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase text-white"
         >
           CONTACT.
         </h2>
-        <div className="w-20 h-1.5 bg-[#D8C3A5] mt-3 rounded-full" />
+        <div className="w-16 sm:w-20 h-1 sm:h-1.5 bg-[#D8C3A5] mt-2.5 rounded-full" />
       </div>
 
       {/* Card Form */}
@@ -71,7 +71,7 @@ export const Contact: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Chat with ${SITE.name} on WhatsApp`}
-          className="whatsapp-card glass glass-hover mb-8 flex items-center gap-4 rounded-3xl px-6 py-5 md:px-8 relative z-10"
+          className="whatsapp-card glass glass-hover mb-4 sm:mb-6 flex items-center gap-3.5 sm:gap-4 rounded-2xl sm:rounded-3xl px-4 py-3.5 sm:px-6 sm:py-5 md:px-8 relative z-10"
         >
           <span className="whatsapp-icon grid h-12 w-12 shrink-0 place-items-center rounded-2xl">
             <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor" aria-hidden="true">
@@ -86,7 +86,7 @@ export const Contact: React.FC = () => {
         </a>
         <a
           href={`tel:+${SITE.phone}`}
-          className="glass glass-hover mb-8 flex items-center gap-4 rounded-3xl px-6 py-5 md:px-8 relative z-10"
+          className="glass glass-hover mb-6 sm:mb-8 flex items-center gap-3.5 sm:gap-4 rounded-2xl sm:rounded-3xl px-4 py-3.5 sm:px-6 sm:py-5 md:px-8 relative z-10"
         >
           <span className="glass-chip grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-[#D8C3A5]">
             <Phone className="h-6 w-6" aria-hidden="true" />
@@ -99,7 +99,7 @@ export const Contact: React.FC = () => {
         <div className="red-halo" style={{ inset: '-14% -10%' }} aria-hidden="true" />
       <div
         ref={cardRef}
-        className="glass glass-panel-card w-full p-8 md:p-14 rounded-3xl relative z-10"
+        className="glass glass-panel-card w-full p-5 sm:p-8 md:p-14 rounded-2xl sm:rounded-3xl relative z-10"
       >
         {submitted ? (
           <div className="py-12 flex flex-col items-center text-center">

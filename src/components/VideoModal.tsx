@@ -72,7 +72,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({ project, onClose, onNavi
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.25 }}
-            className="glass glass-strong relative z-10 flex max-h-[92dvh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border-[#D8C3A5]/35 shadow-2xl shadow-black/80"
+            className="glass glass-strong relative z-10 flex max-h-[92dvh] w-full max-w-4xl flex-col overflow-y-auto rounded-2xl sm:rounded-3xl border-[#D8C3A5]/35 shadow-2xl shadow-black/80"
           >
             <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-5 py-3.5">
               <div className="flex min-w-0 items-center gap-3">

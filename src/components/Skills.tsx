@@ -40,41 +40,41 @@ export const Skills: React.FC = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative w-full text-gray-100 py-28 px-6 md:px-12 lg:px-20 flex flex-col items-center justify-center overflow-hidden border-t border-white/5"
+      className="relative w-full text-gray-100 py-16 sm:py-20 md:py-28 px-4 sm:px-6 md:px-12 lg:px-20 flex flex-col items-center justify-center overflow-hidden border-t border-white/5"
     >
       {/* Section Title */}
-      <div ref={titleRef} className="flex flex-col items-center text-center mb-16 z-10">
-        <span className="text-[#D8C3A5] font-bold uppercase text-sm md:text-base tracking-[0.2em] mb-2">
+      <div ref={titleRef} className="flex flex-col items-center text-center mb-10 sm:mb-16 z-10">
+        <span className="text-[#D8C3A5] font-bold uppercase text-xs sm:text-sm md:text-base tracking-[0.2em] mb-2">
           What I Work With
         </span>
         <h2
-          className="text-5xl md:text-7xl font-black tracking-tight uppercase text-white"
+          className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase text-white"
         >
           TECHNICAL SKILLS.
         </h2>
-        <div className="w-20 h-1.5 bg-[#D8C3A5] mt-3 rounded-full" />
+        <div className="w-16 sm:w-20 h-1 sm:h-1.5 bg-[#D8C3A5] mt-2.5 rounded-full" />
       </div>
 
       {/* Skills Matrix Cards */}
       <div className="relative w-full max-w-6xl z-10">
         <div className="red-halo" aria-hidden="true" />
-        <div className="grid-blur relative grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-7">
+        <div className="grid-blur relative grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-5 md:gap-7">
         {skillsData.map((skill) => (
           <div
             key={skill.name}
-            className="matrix-item glass glass-grid-card group p-6 md:p-8 rounded-3xl flex items-center justify-between gap-4"
+            className="matrix-item glass glass-grid-card group p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl flex items-center justify-between gap-3 sm:gap-4"
           >
-            <div className="flex items-center gap-4 md:gap-5 min-w-0">
+            <div className="flex items-center gap-3 sm:gap-5 min-w-0">
               <div className="min-w-0">
-                <h3 className="font-bold text-lg md:text-2xl text-gray-100 group-hover:text-[#D8C3A5] transition-colors">
+                <h3 className="font-bold text-base sm:text-lg md:text-2xl text-gray-100 group-hover:text-[#D8C3A5] transition-colors">
                   {skill.name}
                 </h3>
-                <span className="text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                <span className="text-[11px] sm:text-xs md:text-sm font-semibold text-gray-400 uppercase tracking-wider block mt-0.5">
                   {skill.category}
                 </span>
               </div>
             </div>
-            <span className="glass-chip text-xs md:text-sm font-black uppercase tracking-wider px-4 py-1.5 text-gray-200 shrink-0 group-hover:text-white rounded-full">
+            <span className="glass-chip text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-wider px-3 py-1 sm:px-4 sm:py-1.5 text-gray-200 shrink-0 group-hover:text-white rounded-full">
               {skill.level}
             </span>
           </div>

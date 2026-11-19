@@ -18,17 +18,17 @@ export const SoftwareStrip: React.FC = () => (
     <h3 className="relative text-4xl md:text-6xl font-black tracking-tight uppercase text-white mb-12">
       MY TECH STACK.
     </h3>
-    <ul className="grid-blur relative flex flex-wrap justify-center gap-4 md:gap-6 list-none p-0 m-0">
+    <ul className="grid-blur relative flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 list-none p-0 m-0 w-full">
       {TOOLS.map((tool) => (
         <li
           key={tool.label}
-          className="matrix-item glass glass-grid-card group w-[132px] h-[190px] md:w-[148px] md:h-[216px] xl:w-[152px] xl:h-[224px] rounded-3xl flex flex-col items-center justify-center gap-5 px-2"
+          className="matrix-item glass glass-grid-card group w-[calc(50%-8px)] sm:w-[140px] md:w-[148px] xl:w-[152px] h-[160px] sm:h-[190px] md:h-[216px] xl:h-[224px] rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center gap-3 sm:gap-5 px-2"
         >
           <svg
             viewBox="0 0 24 24"
             role="img"
             aria-label={tool.label}
-            className="shrink-0 w-14 h-14 md:w-16 md:h-16 transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(216,195,165,0.4)]"
+            className="shrink-0 w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(216,195,165,0.4)]"
             style={{ fill: tool.color }}
           >
             {tool.path ? (

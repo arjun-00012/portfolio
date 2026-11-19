@@ -165,23 +165,23 @@ export const Stats: React.FC = () => {
       id="stats"
       ref={sectionRef}
       aria-labelledby="stats-heading"
-      className="relative w-full text-gray-100 py-20 md:py-28 px-4 md:px-10 lg:px-16 overflow-hidden border-t border-white/5"
+      className="relative w-full text-gray-100 py-12 sm:py-20 md:py-28 px-3 sm:px-6 md:px-10 lg:px-16 overflow-hidden border-t border-white/5"
     >
       <h2 id="stats-heading" className="sr-only">
         Client results
       </h2>
 
       {/* One glass panel, three columns split by hairlines */}
-      <div ref={panelRef} className="stat-panel glass glass-panel-card relative z-10 max-w-7xl mx-auto rounded-3xl overflow-hidden">
+      <div ref={panelRef} className="stat-panel glass glass-panel-card relative z-10 max-w-7xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden">
         <div className="stat-light" aria-hidden="true" />
         <div className="stat-rim" aria-hidden="true" />
 
         <dl className="relative z-10 m-0 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20">
           {CLIENT_STATS.map((stat) => (
-            <div key={stat.id} data-value={stat.value} className="stat-item px-6 py-12 md:px-8 md:py-20 lg:px-10">
+            <div key={stat.id} data-value={stat.value} className="stat-item px-5 py-7 sm:px-6 sm:py-12 md:px-8 md:py-20 lg:px-10">
               {/* label comes first in the DOM (dt before dd); flex-col-reverse puts the figure on top */}
-              <div className="stat-cq flex flex-col-reverse gap-6">
-                <dt className="stat-label text-sm md:text-base font-semibold uppercase tracking-[0.16em] leading-snug text-gray-300">
+              <div className="stat-cq flex flex-col-reverse gap-3 sm:gap-6">
+                <dt className="stat-label text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.16em] leading-snug text-gray-300">
                   {stat.label}
                 </dt>
                 <dd className="m-0">
@@ -197,7 +197,7 @@ export const Stats: React.FC = () => {
                     </span>
                     <span className="stat-suffix">{stat.suffix}</span>
                   </div>
-                  <div className="stat-bar mt-6 w-12 h-1 bg-[#D8C3A5] rounded-full origin-left" aria-hidden="true" />
+                  <div className="stat-bar mt-3 sm:mt-6 w-10 sm:w-12 h-1 bg-[#D8C3A5] rounded-full origin-left" aria-hidden="true" />
                 </dd>
               </div>
             </div>

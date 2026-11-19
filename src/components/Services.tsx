@@ -56,38 +56,38 @@ export const Services: React.FC = () => {
       </div>
 
       {/* Service cards: glass rows, service on the left, price chip + action on the right */}
-      <ul ref={listRef} className="grid-blur relative list-none p-0 m-0 w-full max-w-4xl grid grid-cols-2 gap-3 md:flex md:flex-col md:gap-4 z-10">
+      <ul ref={listRef} className="grid-blur relative list-none p-0 m-0 w-full max-w-4xl flex flex-col gap-3.5 md:gap-4 z-10">
         {SERVICES_PRICING.map((service, i) => {
           const featured = 'featured' in service && service.featured;
           return (
             <li key={service.id} className="service-item">
               <a
                 href="#contact"
-                className="glass glass-grid-card group relative flex h-full flex-col items-start gap-3 p-4 md:flex-row md:items-center md:gap-6 md:p-5 rounded-3xl outline-none"
+                className="glass glass-grid-card group relative flex h-full flex-row items-center gap-3.5 p-4 sm:p-5 md:gap-6 md:p-5 rounded-2xl sm:rounded-3xl outline-none"
               >
                 {/* Index */}
-                <span className="glass-chip shrink-0 w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center text-[10px] md:text-sm font-black tabular-nums text-gray-200 group-hover:text-white">
+                <span className="glass-chip shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center text-xs sm:text-sm font-black tabular-nums text-gray-200 group-hover:text-white">
                   {String(i + 1).padStart(2, '0')}
                 </span>
 
                 {/* Name + price */}
-                <div className="flex-1 min-w-0 flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-6">
+                <div className="flex-1 min-w-0 flex flex-col gap-1 sm:gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
                   <div className="min-w-0">
-                    <h3 className="font-bold text-sm md:text-xl text-gray-100 group-hover:text-[#D8C3A5] transition-colors">
+                    <h3 className="font-bold text-sm sm:text-base md:text-xl text-gray-100 group-hover:text-[#D8C3A5] transition-colors truncate sm:whitespace-normal">
                       {service.title}
                     </h3>
                     {featured && (
-                      <span className="glass-chip-red inline-block mt-1.5 text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full text-[#141311]">
+                      <span className="glass-chip-red inline-block mt-1 text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full text-[#141311]">
                         Specialty
                       </span>
                     )}
                   </div>
 
-                  <div className="md:text-right shrink-0">
-                    <span className="block text-[10px] font-semibold uppercase tracking-wider text-gray-500 mb-1">
+                  <div className="sm:text-right shrink-0 flex items-center gap-2 sm:block">
+                    <span className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-gray-400 sm:block sm:mb-1">
                       {service.priceLabel}
                     </span>
-                    <span className="glass-chip inline-block text-xs md:text-base font-black tabular-nums px-3 py-1 md:px-3.5 rounded-full text-gray-100 group-hover:text-white">
+                    <span className="glass-chip inline-block text-[11px] sm:text-xs md:text-base font-black tabular-nums px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full text-gray-100 group-hover:text-white">
                       {service.price}
                     </span>
                   </div>
@@ -96,7 +96,7 @@ export const Services: React.FC = () => {
                 {/* Arrow */}
                 <span
                   aria-hidden="true"
-                  className="glass-chip shrink-0 absolute right-3 top-3 w-8 h-8 md:static md:w-11 md:h-11 rounded-full flex items-center justify-center text-gray-300
+                  className="glass-chip shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center text-gray-300
                     group-hover:[background-image:linear-gradient(145deg,rgba(216,195,165,0.6),rgba(140,121,96,0.45))]
                     group-hover:border-[rgba(216,195,165,0.45)] group-hover:text-[#141311]"
                 >
