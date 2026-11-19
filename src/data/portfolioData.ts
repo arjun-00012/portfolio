@@ -14,6 +14,7 @@ export const SITE = {
   email: 'arjunarju9747@gmail.com',
   // Digits only with country code, no + or spaces
   phone: '919074277754',
+  displayPhone: '+91 90742 77754',
   whatsappMessage: 'Hi, I visited your portfolio and would like to get in touch.',
   available: true,
 };
