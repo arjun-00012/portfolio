@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
-const SPARK_POOL = 160;
-const BRANCH_POOL = 24;
-const TRAIL_MAX = 14;
+const SPARK_POOL = 70;
+const BRANCH_POOL = 12;
+const TRAIL_MAX = 10;
 const COLOR_WHITE = '242,232,216';
 const COLOR_RED = '216,195,165';
 const COLOR_DEEP = '140,121,96';
@@ -231,14 +231,17 @@ export const SparkCursor: React.FC = () => {
         for (let j = 2; j < b.pts.length; j += 2) {
           ctx.lineTo(b.pts[j], b.pts[j + 1]);
         }
-        ctx.shadowBlur = b.bright ? 14 : 8;
-        ctx.shadowColor = 'rgba(216,195,165,0.35)';
-        ctx.strokeStyle = `rgba(${COLOR_RED},${ratio * 0.85})`;
-        ctx.lineWidth = b.width * 2;
+        // Hardware-accelerated glow using layered strokes instead of CPU shadowBlur
+        ctx.strokeStyle = `rgba(${COLOR_RED},${ratio * (b.bright ? 0.35 : 0.2)})`;
+        ctx.lineWidth = b.width * 4;
         ctx.stroke();
-        ctx.shadowBlur = 0;
-        ctx.strokeStyle = `rgba(${COLOR_WHITE},${ratio * (b.bright ? 0.8 : 0.45)})`;
-        ctx.lineWidth = b.width * 0.5;
+
+        ctx.strokeStyle = `rgba(${COLOR_RED},${ratio * 0.85})`;
+        ctx.lineWidth = b.width * 1.8;
+        ctx.stroke();
+
+        ctx.strokeStyle = `rgba(${COLOR_WHITE},${ratio * (b.bright ? 0.9 : 0.5)})`;
+        ctx.lineWidth = b.width * 0.6;
         ctx.stroke();
       }
 

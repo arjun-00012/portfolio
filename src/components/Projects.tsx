@@ -298,7 +298,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
     }
 
     const isMobile = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5));
     renderer.setClearColor(0, 0);
     canvasWrap.appendChild(renderer.domElement);
     renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block';

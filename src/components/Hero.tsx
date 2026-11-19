@@ -135,8 +135,8 @@ export const Hero: React.FC = () => {
     const highlightColor = new THREE.Color(css.getPropertyValue('--glass-highlight').trim() || '#D8C3A5');
 
     /* renderer */
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarse ? 1.5 : 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarse ? 1 : 1.5));
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -488,13 +488,8 @@ export const Hero: React.FC = () => {
       }
       cursorLight.intensity += ((hoverIndex >= 0 || dragIndex >= 0 ? 1.4 : 0) - cursorLight.intensity) * damp(6);
 
-      /* idle: rebuild geometry periodically so the central crack breathes */
+      /* idle & animations: position and rotation springs run smoothly without GC allocations */
       idleClock += dt;
-      const displaced = shards.some((s) => s.x.position !== 0 || s.y.position !== 0);
-      if (!reduceMotion && dragIndex < 0 && !displaced && idleClock > 0.25 && sp < 0.02) {
-        idleClock = 0;
-        buildShards();
-      }
 
       const fly = sp * Math.max(plateW, plateH) * 0.9;
       shards.forEach((s, i) => {

@@ -100,7 +100,7 @@ export const ParticleField: React.FC = () => {
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.25);
 
     renderer.setPixelRatio(dpr);
     renderer.setClearColor(0x000000, 0);
@@ -111,7 +111,7 @@ export const ParticleField: React.FC = () => {
     const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 200);
     camera.position.set(0, 0, 6);
 
-    const count = isMobile ? 900 : 2200;
+    const count = isMobile ? 500 : 1100;
     const positions = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
     const seeds = new Float32Array(count);

@@ -212,7 +212,6 @@ export const SERVICES_PRICING = [
   { id: 'service-2', title: 'Django Backend Development', priceLabel: 'Investment', price: 'Custom Quote', featured: false },
   { id: 'service-3', title: 'REST API Development', priceLabel: 'Investment', price: 'Custom Quote', featured: false },
   { id: 'service-4', title: 'E-Commerce Website Development', priceLabel: 'Investment', price: 'Custom Quote', featured: false },
-  { id: 'service-5', title: 'College Mini Project Development', priceLabel: 'Starts from', price: '₹2,000', featured: false },
 ] as const;
 
 /* ───────────── 9. HEADLINE NUMBERS (under hero) ───────────── */
